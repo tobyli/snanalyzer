@@ -15,8 +15,8 @@ public class Mingle {
     UserType target;
     Set<Integer> domainSet;
     Map<Integer,UserType> result;
-    public  Mingle(UserType target, Set<Integer> domainSet, Map<Integer,UserType> result){
-        this.target = target;
+    public  Mingle(UserType target, Set<Integer> domainSet, Map<Integer,UserType> result) throws CloneNotSupportedException{
+        this.target = (UserType)target.clone();
         this.domainSet = domainSet;
         this.result = result;
     }
@@ -35,7 +35,6 @@ public class Mingle {
     }
 
     public UserType randomMingle(int count){
-        UserType target = this.target;
         for(int i = 0; i < count; i ++){
             target.friends.add(getRandom(domainSet));
         }
@@ -45,10 +44,9 @@ public class Mingle {
     }
 
     public UserType userMingle(int count){
-        UserType target = this.target;
         for(int i = 0; i < count; i ++){
             int randomUser = getRandom(domainSet);
-            target.friends.addAll(this.result.get(randomUser).friends);
+            target.friends.addAll(result.get(randomUser).friends);
         }
         //System.out.println("Finish Mingling");
         return target;

@@ -1,5 +1,7 @@
 package com.snanalyzer;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -9,12 +11,24 @@ import java.util.Set;
  * Time: 2:21 AM
  * To change this template use File | Settings | File Templates.
  */
-public class UserType {
+public class UserType implements Cloneable {
     Integer userId;
     Set<Integer> friends;
     public UserType(int userId, Set<Integer> friends){
         this.userId = userId;
         this.friends = friends;
+    }
+    public UserType(UserType userType){
+        this.userId = new Integer(userType.userId.intValue());
+        Integer temp[] = new Integer[1000];
+        System.arraycopy(userType.friends.toArray(), 0, temp, 0, userType.friends.size());
+        this.friends = new HashSet<Integer>();
+        for(int i = 0; i < userType.friends.size(); i++){
+            friends.add(temp[i]);
+        }
+    }
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     public void print(){

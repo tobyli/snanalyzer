@@ -14,10 +14,14 @@ public class Analyzer {
             progressCounter++;
             if(progressCounter % 100 == 0)
                 System.out.printf("%d out of 3959\n", progressCounter);
-            UserType target = result.get(e);
-            target = new Mingle(target, result.keySet(), result).userMingle(3);
-            Deanonymizer deanonymizer = new Deanonymizer(target, result);
-            if(deanonymizer.deanonymize())
+
+            UserType realTarget = (UserType)new UserType(result.get(e)).clone();
+            UserType target = new UserType(realTarget);
+            //System.out.print(realTarget.friends.size());
+            target = new Mingle(target, result.keySet(), result).randomMingle(0);
+            //System.out.printf(" %d\n", realTarget.friends.size());
+            Deanonymizer deanonymizer = new Deanonymizer(target, result, realTarget);
+            if(deanonymizer.deanonymize2())
                 trueCounter++;
             else
                 falseCounter++;
